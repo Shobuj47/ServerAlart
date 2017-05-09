@@ -34,6 +34,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.col_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_host = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Server = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Port = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_remove = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +52,8 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startMonitoringToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txt_hostname = new System.Windows.Forms.TextBox();
             this.txt_Port = new System.Windows.Forms.MaskedTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -81,14 +89,6 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.col_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_host = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Server = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Port = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_remove = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txt_hostname = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -148,6 +148,49 @@
             this.dataGridView1.Size = new System.Drawing.Size(546, 226);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // col_ID
+            // 
+            this.col_ID.HeaderText = "ID";
+            this.col_ID.Name = "col_ID";
+            this.col_ID.ReadOnly = true;
+            this.col_ID.Width = 30;
+            // 
+            // col_host
+            // 
+            this.col_host.HeaderText = "Host Name";
+            this.col_host.Name = "col_host";
+            this.col_host.ReadOnly = true;
+            this.col_host.Width = 120;
+            // 
+            // col_Server
+            // 
+            this.col_Server.HeaderText = "Server Address";
+            this.col_Server.Name = "col_Server";
+            this.col_Server.ReadOnly = true;
+            this.col_Server.Width = 120;
+            // 
+            // col_Port
+            // 
+            this.col_Port.HeaderText = "Port";
+            this.col_Port.Name = "col_Port";
+            this.col_Port.ReadOnly = true;
+            this.col_Port.Width = 60;
+            // 
+            // col_Status
+            // 
+            this.col_Status.HeaderText = "Status";
+            this.col_Status.Name = "col_Status";
+            this.col_Status.ReadOnly = true;
+            this.col_Status.Width = 70;
+            // 
+            // col_remove
+            // 
+            this.col_remove.HeaderText = "Remove";
+            this.col_remove.Name = "col_remove";
+            this.col_remove.ReadOnly = true;
+            this.col_remove.Text = "Remove";
+            this.col_remove.UseColumnTextForButtonValue = true;
             // 
             // label2
             // 
@@ -249,6 +292,22 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Add New Host :";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(230, 21);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(35, 13);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "Host :";
+            // 
+            // txt_hostname
+            // 
+            this.txt_hostname.Location = new System.Drawing.Point(270, 17);
+            this.txt_hostname.Name = "txt_hostname";
+            this.txt_hostname.Size = new System.Drawing.Size(96, 20);
+            this.txt_hostname.TabIndex = 5;
             // 
             // txt_Port
             // 
@@ -583,65 +642,6 @@
             this.richTextBox2.Size = new System.Drawing.Size(552, 319);
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = resources.GetString("richTextBox2.Text");
-            // 
-            // col_ID
-            // 
-            this.col_ID.HeaderText = "ID";
-            this.col_ID.Name = "col_ID";
-            this.col_ID.ReadOnly = true;
-            this.col_ID.Width = 30;
-            // 
-            // col_host
-            // 
-            this.col_host.HeaderText = "Host Name";
-            this.col_host.Name = "col_host";
-            this.col_host.ReadOnly = true;
-            this.col_host.Width = 120;
-            // 
-            // col_Server
-            // 
-            this.col_Server.HeaderText = "Server Address";
-            this.col_Server.Name = "col_Server";
-            this.col_Server.ReadOnly = true;
-            this.col_Server.Width = 120;
-            // 
-            // col_Port
-            // 
-            this.col_Port.HeaderText = "Port";
-            this.col_Port.Name = "col_Port";
-            this.col_Port.ReadOnly = true;
-            this.col_Port.Width = 60;
-            // 
-            // col_Status
-            // 
-            this.col_Status.HeaderText = "Status";
-            this.col_Status.Name = "col_Status";
-            this.col_Status.ReadOnly = true;
-            this.col_Status.Width = 70;
-            // 
-            // col_remove
-            // 
-            this.col_remove.HeaderText = "Remove";
-            this.col_remove.Name = "col_remove";
-            this.col_remove.ReadOnly = true;
-            this.col_remove.Text = "Remove";
-            this.col_remove.UseColumnTextForButtonValue = true;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(230, 21);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(35, 13);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "Host :";
-            // 
-            // txt_hostname
-            // 
-            this.txt_hostname.Location = new System.Drawing.Point(270, 17);
-            this.txt_hostname.Name = "txt_hostname";
-            this.txt_hostname.Size = new System.Drawing.Size(96, 20);
-            this.txt_hostname.TabIndex = 5;
             // 
             // Form1
             // 

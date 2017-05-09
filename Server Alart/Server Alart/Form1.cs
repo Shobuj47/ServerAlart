@@ -54,8 +54,6 @@ namespace Server_Alart
             dynamic mbox = MessageBox.Show("Run the application Background \"Yes\" \n Close The Application \"No\" ", "Confirmation", MessageBoxButtons.YesNo);
             if (mbox == DialogResult.No)
             {
-                thread1.Abort();
-                e.Cancel = false;
                 Application.Exit();
             }
             else if (mbox == DialogResult.Yes)
@@ -203,7 +201,7 @@ namespace Server_Alart
     {
         for (int i = 0; i < dataGridView1.Rows.Count - 1; i++ )
         {
-            if (dataGridView1.Rows[i].Cells[4].Selected) {
+            if (dataGridView1.Rows[i].Cells[5].Selected) {
                 dataGridView1.Rows.RemoveAt(i);
                 logs("Server URL removed at" + dataGridView1.Rows[i].Cells[1].ToString());
             }
