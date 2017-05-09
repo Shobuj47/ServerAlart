@@ -87,7 +87,14 @@ namespace Server_Alart
             {
                 if (txt_hostname.Text == "")
                 {
-                    _hostName = System.Net.Dns.GetHostEntry(IPAddress.Parse(txt_Host.Text)).HostName.ToString();
+                    try
+                    {
+                        _hostName = System.Net.Dns.GetHostEntry(IPAddress.Parse(txt_Host.Text)).HostName.ToString();
+                    }
+                    catch (Exception ex) {
+                        logs("Host: "+txt_Host.Text+" is not reachable or have no DNS entry");
+                        _hostName = "";
+                    }
                 }
                 else {
                     _hostName = txt_hostname.Text;
