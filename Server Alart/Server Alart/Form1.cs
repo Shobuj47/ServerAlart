@@ -54,6 +54,8 @@ namespace Server_Alart
             dynamic mbox = MessageBox.Show("Run the application Background \"Yes\" \n Close The Application \"No\" ", "Confirmation", MessageBoxButtons.YesNo);
             if (mbox == DialogResult.No)
             {
+                thread1.Abort();
+                e.Cancel = false;
                 Application.Exit();
             }
             else if (mbox == DialogResult.Yes)
@@ -142,30 +144,30 @@ namespace Server_Alart
             {
                 for (int iRow = 0; iRow < dataGridView1.Rows.Count - 1; iRow++)
                 {
-                    string serverAddress = dataGridView1.Rows[iRow].Cells[1].Value.ToString();
-                    if (dataGridView1.Rows[iRow].Cells[2].Value.ToString() == "")
+                    string serverAddress = dataGridView1.Rows[iRow].Cells[2].Value.ToString();
+                    if (dataGridView1.Rows[iRow].Cells[3].Value.ToString() == "")
                     {
                         if (pingHost(serverAddress))
                         {
-                            dataGridView1.Rows[iRow].Cells[3].Value = "Up";
+                            dataGridView1.Rows[iRow].Cells[4].Value = "Up";
                         }
                         else {
-                            dataGridView1.Rows[iRow].Cells[3].Value = "Down";
+                            dataGridView1.Rows[iRow].Cells[4].Value = "Down";
                             speech("Server Down!");
                         }
                     } 
                     else
                     {
-                    int sport = int.Parse(dataGridView1.Rows[iRow].Cells[2].Value.ToString());
+                    int sport = int.Parse(dataGridView1.Rows[iRow].Cells[3].Value.ToString());
                         if (PingHostPort(serverAddress, sport) == false)
                         {
-                            dataGridView1.Rows[iRow].Cells[3].Value = "Down";
+                            dataGridView1.Rows[iRow].Cells[4].Value = "Down";
                             notifyIcon1.ShowBalloonTip(800, "Server Notification", "Server " + serverAddress + "is Down", ToolTipIcon.Info);
                             speech("Server Down!");
                         }
                         else if (PingHostPort(serverAddress, sport) == true)
                         {
-                            dataGridView1.Rows[iRow].Cells[3].Value = "Up";
+                            dataGridView1.Rows[iRow].Cells[4].Value = "Up";
                         }
                     }
                 }
@@ -302,7 +304,7 @@ namespace Server_Alart
 
     private void exitToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        thread1.Abort();
+        //thread1.Abort();
         Application.Exit();
     }
 
