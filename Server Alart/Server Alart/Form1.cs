@@ -15,6 +15,8 @@ using System.Speech.Synthesis;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.IO;
+using System.Data.OleDb;
+using System.Data.SqlClient;
 
 namespace Server_Alart
 {
@@ -289,23 +291,17 @@ namespace Server_Alart
 
     private void importDataFromExcelToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        string path;
-        if (openFileDialog1.ShowDialog() == DialogResult.OK)
-        {
-            path = openFileDialog1.FileName.ToString();
-            MessageBox.Show(path);
-            logs("Data imported from " + path);
-        }
+        importFromExcel();
     }
 
     private void exportDataToExcelToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        string path;
-        if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+        if (dataGridView1.Rows.Count > 1)
         {
-            path = saveFileDialog1.FileName.ToString();
-            MessageBox.Show(path);
-            logs("Data exported to " + path);
+            ExportToExcel();
+        }
+        else {
+            MessageBox.Show("There is no data to Export!");
         }
     }
 
@@ -522,5 +518,103 @@ namespace Server_Alart
         }
     }
 
+
+    /// <summary> 
+    /// Exports the datagridview values to Excel. 
+    /// </summary> 
+    private void ExportToExcel()
+    {
+        try
+        {
+            // creating Excel Application
+            Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
+            // creating new WorkBook within Excel application
+            Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
+            // creating new Excelsheet in workbook
+            Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
+            // see the excel sheet behind the program
+            app.Visible = true;
+            worksheet = workbook.Sheets["Sheet1"];
+            worksheet = workbook.ActiveSheet;
+            worksheet.Name = "Sheet1";
+            // Getting Headers from DatagridView
+            for (int i = 1; i < dataGridView1.Columns.Count - 2; i++)
+            {
+                worksheet.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
+            }
+            // storing Each row and column value to excel sheet
+            for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+            {
+
+                for (int j = 0; j < dataGridView1.Columns.Count - 2; j++)
+                {
+
+                    worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+
+                }
+
+            }
+            // save the application
+            saveFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+            saveFileDialog1.FilterIndex = 2;
+            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                workbook.SaveAs(saveFileDialog1.FileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                MessageBox.Show("Export Successful");
+            }
+            app.Quit();
+            logs("List Exported Sucessfully");
+        }
+        catch (Exception ex) {
+            logs(ex.ToString());
+        }
+        }
+
+
+    private string Excel07ConString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 8.0;HDR={1}'";
+    
+    private void importFromExcel() {
+        try
+        {
+            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.Multiselect = false;
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+
+                string filePath = "C:\\Users\\Shobuj\\Desktop\\data.xlsx";
+                string header = "No";
+                string conStr = string.Format(Excel07ConString, filePath, header);
+                using (OleDbConnection con = new OleDbConnection(conStr))
+                {
+                    using (OleDbCommand cmd = new OleDbCommand())
+                    {
+                        using (OleDbDataAdapter oda = new OleDbDataAdapter())
+                        {
+                            DataTable dt = new DataTable();
+                            cmd.CommandText = "SELECT * From [Sheet1$]";
+                            cmd.Connection = con;
+                            con.Open();
+                            oda.SelectCommand = cmd;
+                            oda.Fill(dt);
+                            con.Close();
+
+                            for (int i = 1; i <= dt.Rows.Count - 1; i++)
+                            {
+                                dataGridView1.Rows.Add(dt.Rows[i][0].ToString(), dt.Rows[i][1].ToString(), dt.Rows[i][2].ToString(), dt.Rows[i][3].ToString());
+                            }
+                        }
+                    }
+                }
+
+            }
+            logs("File Imported Succesfully");
+        }
+        catch (Exception ex) { 
+        logs(ex.ToString());
+        }
     }
-}
+
+
+        }
+    } 
