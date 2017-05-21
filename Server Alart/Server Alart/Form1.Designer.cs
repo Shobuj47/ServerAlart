@@ -34,12 +34,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.col_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_host = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Server = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Port = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_remove = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,6 +83,12 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.col_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_host = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Server = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Port = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_remove = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -104,10 +104,10 @@
             // 
             // txt_Host
             // 
-            this.txt_Host.Location = new System.Drawing.Point(53, 17);
+            this.txt_Host.Location = new System.Drawing.Point(69, 18);
             this.txt_Host.Name = "txt_Host";
             this.txt_Host.Size = new System.Drawing.Size(171, 20);
-            this.txt_Host.TabIndex = 0;
+            this.txt_Host.TabIndex = 1;
             this.txt_Host.Text = "127.0.0.1";
             this.txt_Host.Leave += new System.EventHandler(this.txt_Host_Leave);
             // 
@@ -116,16 +116,16 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Ip Addr :";
+            this.label1.Size = new System.Drawing.Size(64, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "IP Address :";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(463, 17);
+            this.button1.Location = new System.Drawing.Point(555, 17);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
+            this.button1.TabIndex = 4;
             this.button1.Text = "Add Host";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -142,63 +142,21 @@
             this.col_remove});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 90);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 63);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(546, 226);
-            this.dataGridView1.TabIndex = 2;
+            this.dataGridView1.Size = new System.Drawing.Size(638, 253);
+            this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // col_ID
-            // 
-            this.col_ID.HeaderText = "ID";
-            this.col_ID.Name = "col_ID";
-            this.col_ID.ReadOnly = true;
-            this.col_ID.Width = 30;
-            // 
-            // col_host
-            // 
-            this.col_host.HeaderText = "Host Name";
-            this.col_host.Name = "col_host";
-            this.col_host.ReadOnly = true;
-            this.col_host.Width = 120;
-            // 
-            // col_Server
-            // 
-            this.col_Server.HeaderText = "Server Address";
-            this.col_Server.Name = "col_Server";
-            this.col_Server.ReadOnly = true;
-            this.col_Server.Width = 120;
-            // 
-            // col_Port
-            // 
-            this.col_Port.HeaderText = "Port";
-            this.col_Port.Name = "col_Port";
-            this.col_Port.ReadOnly = true;
-            this.col_Port.Width = 60;
-            // 
-            // col_Status
-            // 
-            this.col_Status.HeaderText = "Status";
-            this.col_Status.Name = "col_Status";
-            this.col_Status.ReadOnly = true;
-            this.col_Status.Width = 70;
-            // 
-            // col_remove
-            // 
-            this.col_remove.HeaderText = "Remove";
-            this.col_remove.Name = "col_remove";
-            this.col_remove.ReadOnly = true;
-            this.col_remove.Text = "Remove";
-            this.col_remove.UseColumnTextForButtonValue = true;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(372, 21);
+            this.label2.Location = new System.Drawing.Point(465, 21);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 13);
-            this.label2.TabIndex = 1;
+            this.label2.TabIndex = 3;
             this.label2.Text = "Port :";
             // 
             // menuStrip1
@@ -208,7 +166,7 @@
             this.startMonitoringToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(560, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(652, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -272,8 +230,8 @@
             // startMonitoringToolStripMenuItem
             // 
             this.startMonitoringToolStripMenuItem.Name = "startMonitoringToolStripMenuItem";
-            this.startMonitoringToolStripMenuItem.Size = new System.Drawing.Size(156, 20);
-            this.startMonitoringToolStripMenuItem.Text = "Start Monitoring / Refresh";
+            this.startMonitoringToolStripMenuItem.Size = new System.Drawing.Size(141, 20);
+            this.startMonitoringToolStripMenuItem.Text = "Start / Stop Monitoring";
             this.startMonitoringToolStripMenuItem.Click += new System.EventHandler(this.startMonitoringToolStripMenuItem_Click);
             // 
             // groupBox1
@@ -288,7 +246,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(546, 54);
+            this.groupBox1.Size = new System.Drawing.Size(638, 54);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Add New Host :";
@@ -296,22 +254,22 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(230, 21);
+            this.label9.Location = new System.Drawing.Point(245, 21);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(35, 13);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "Host :";
+            this.label9.Size = new System.Drawing.Size(66, 13);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Host Name :";
             // 
             // txt_hostname
             // 
-            this.txt_hostname.Location = new System.Drawing.Point(270, 17);
+            this.txt_hostname.Location = new System.Drawing.Point(317, 18);
             this.txt_hostname.Name = "txt_hostname";
-            this.txt_hostname.Size = new System.Drawing.Size(96, 20);
-            this.txt_hostname.TabIndex = 5;
+            this.txt_hostname.Size = new System.Drawing.Size(139, 20);
+            this.txt_hostname.TabIndex = 2;
             // 
             // txt_Port
             // 
-            this.txt_Port.Location = new System.Drawing.Point(410, 19);
+            this.txt_Port.Location = new System.Drawing.Point(503, 19);
             this.txt_Port.Mask = "0000";
             this.txt_Port.Name = "txt_Port";
             this.txt_Port.Size = new System.Drawing.Size(47, 20);
@@ -371,7 +329,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(560, 345);
+            this.tabControl1.Size = new System.Drawing.Size(652, 345);
             this.tabControl1.TabIndex = 3;
             // 
             // tabPage1
@@ -381,7 +339,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(552, 319);
+            this.tabPage1.Size = new System.Drawing.Size(644, 319);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Host\'s Manager";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -395,7 +353,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(552, 319);
+            this.tabPage2.Size = new System.Drawing.Size(644, 319);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Settings";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -606,7 +564,7 @@
             this.tabPage3.Controls.Add(this.richTextBox1);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(552, 319);
+            this.tabPage3.Size = new System.Drawing.Size(644, 319);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "App Logs";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -618,7 +576,7 @@
             this.richTextBox1.Location = new System.Drawing.Point(0, 0);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(552, 319);
+            this.richTextBox1.Size = new System.Drawing.Size(644, 319);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
@@ -627,7 +585,7 @@
             this.tabPage4.Controls.Add(this.richTextBox2);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(552, 319);
+            this.tabPage4.Size = new System.Drawing.Size(644, 319);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "About";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -639,22 +597,68 @@
             this.richTextBox2.Location = new System.Drawing.Point(0, 0);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.ReadOnly = true;
-            this.richTextBox2.Size = new System.Drawing.Size(552, 319);
+            this.richTextBox2.Size = new System.Drawing.Size(644, 319);
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = resources.GetString("richTextBox2.Text");
+            // 
+            // col_ID
+            // 
+            this.col_ID.HeaderText = "ID";
+            this.col_ID.Name = "col_ID";
+            this.col_ID.ReadOnly = true;
+            this.col_ID.Width = 30;
+            // 
+            // col_host
+            // 
+            this.col_host.HeaderText = "Host Name";
+            this.col_host.Name = "col_host";
+            this.col_host.ReadOnly = true;
+            this.col_host.Width = 170;
+            // 
+            // col_Server
+            // 
+            this.col_Server.HeaderText = "Server Address";
+            this.col_Server.Name = "col_Server";
+            this.col_Server.ReadOnly = true;
+            this.col_Server.Width = 160;
+            // 
+            // col_Port
+            // 
+            this.col_Port.HeaderText = "Port";
+            this.col_Port.Name = "col_Port";
+            this.col_Port.ReadOnly = true;
+            this.col_Port.Width = 60;
+            // 
+            // col_Status
+            // 
+            this.col_Status.HeaderText = "Status";
+            this.col_Status.Name = "col_Status";
+            this.col_Status.ReadOnly = true;
+            this.col_Status.Width = 70;
+            // 
+            // col_remove
+            // 
+            this.col_remove.HeaderText = "Remove";
+            this.col_remove.Name = "col_remove";
+            this.col_remove.ReadOnly = true;
+            this.col_remove.Text = "Remove";
+            this.col_remove.UseColumnTextForButtonValue = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(560, 369);
+            this.ClientSize = new System.Drawing.Size(652, 369);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximumSize = new System.Drawing.Size(668, 407);
+            this.MinimumSize = new System.Drawing.Size(668, 407);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Server Monitor v1.0.1.5";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -730,14 +734,14 @@
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txt_toMail;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txt_hostname;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_host;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_Server;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_Port;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_Status;
         private System.Windows.Forms.DataGridViewButtonColumn col_remove;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txt_hostname;
     }
 }
 

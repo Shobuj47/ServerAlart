@@ -26,7 +26,6 @@ namespace Server_Alart
     public Form1()
         {
            InitializeComponent();
-           this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
         }
 
     #region variable
@@ -42,6 +41,7 @@ namespace Server_Alart
     private const int keysize = 256;
     private const string pw = "$h0BuJ";
     Thread thread1;
+    Boolean _isStarted = false;
     #endregion
 
     private void Form1_Load(object sender, EventArgs e)
@@ -51,22 +51,35 @@ namespace Server_Alart
 
     private void Form1_FormClosing(object sender, FormClosingEventArgs e)
     {
-        if (e.CloseReason == CloseReason.UserClosing)
+        try{
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                dynamic mbox = MessageBox.Show("Run the Application Background \"Yes\" \nClose The Application \"No\" \nCancel Closing \"Cancel\"", "Exit Confirmation", MessageBoxButtons.YesNoCancel);
+                if (mbox == DialogResult.Yes)
+                {
+                    this.notifyIcon1.Visible = true;
+                    MessageBox.Show("The System is running on Background");
+                    e.Cancel = true;
+                    Form1.ActiveForm.Hide();
+                }
+                else if (mbox == DialogResult.No)
+                {
+                    if (_isStarted)
+                    {
+                        this.thread1.Abort();
+                    }
+                    e.Cancel = false;
+                    Application.Exit();
+                }
+                else if (mbox == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
+        catch (Exception ex)
         {
-            dynamic mbox = MessageBox.Show("Run the application Background \"Yes\" \n Close The Application \"No\" ", "Confirmation", MessageBoxButtons.YesNo);
-            if (mbox == DialogResult.No)
-            {
-                thread1.Abort();
-                e.Cancel = false;
-                Application.Exit();
-            }
-            else if (mbox == DialogResult.Yes)
-            {
-                notifyIcon1.Visible = true;
-                MessageBox.Show("The System is running on Background");
-                e.Cancel = true;
-                Form1.ActiveForm.Hide();
-            }
+            this.logs(ex.ToString());
         }
     }
 
@@ -87,14 +100,14 @@ namespace Server_Alart
             string _hostName = "";
             if (this.txt_Host.Text != "")
             {
-                if (txt_hostname.Text == "")
+                if (this.txt_hostname.Text == "")
                 {
                     try
                     {
                         _hostName = System.Net.Dns.GetHostEntry(IPAddress.Parse(txt_Host.Text)).HostName.ToString();
                     }
                     catch (Exception ex) {
-                        logs("Host: "+txt_Host.Text+" is not reachable or have no DNS entry");
+                        this.logs("Host: "+txt_Host.Text+" is not reachable or have no DNS entry");
                         _hostName = "";
                     }
                 }
@@ -102,8 +115,8 @@ namespace Server_Alart
                     _hostName = txt_hostname.Text;
                 }
                 int id = dataGridView1.Rows.Count;
-                dataGridView1.Rows.Add(id,_hostName, txt_Host.Text, txt_Port.Text);
-                logs("Server Address added to list : " + txt_Host.Text);
+                this.dataGridView1.Rows.Add(id,_hostName, this.txt_Host.Text, this.txt_Port.Text);
+                this.logs("Server Address added to list : " + this.txt_Host.Text);
             }
         }
         catch (Exception ex)
@@ -279,10 +292,19 @@ namespace Server_Alart
     {
         try
         {
-            thread1 = new Thread(hostStatus);
-            thread1.Start();
-            thread1.IsBackground = true;
-            logs("Server Monitoring Started ");
+            if (!_isStarted)
+            {
+                thread1 = new Thread(hostStatus);
+                thread1.Start();
+                thread1.IsBackground = true;
+                logs("Server Monitoring Started ");
+                _isStarted = true;
+            }
+            else {
+                thread1.Abort();
+                logs("Server Monitoring Stoped ");
+                _isStarted = false;
+            }
         }
         catch (Exception ex) {
             logs(ex.ToString());
@@ -313,7 +335,17 @@ namespace Server_Alart
 
     private void saveLogsToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        // Initialize the SaveFileDialog to specify the txt extension for the file.
+        saveFileDialog1.DefaultExt = "*.txt";
+        saveFileDialog1.Filter = "Text Files|*.txt";
 
+        // Determine if the user selected a file name from the saveFileDialog.
+        if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK &&
+           saveFileDialog1.FileName.Length > 0)
+        {
+            // Save the contents of the RichTextBox into the txt file.
+            richTextBox1.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.PlainText);
+        }
     }
 
     #endregion
@@ -329,6 +361,7 @@ namespace Server_Alart
     private void showApplicationToolStripMenuItem_Click(object sender, EventArgs e)
     {
         this.Show();
+        this.notifyIcon1.Visible = false;
     }
 
     #endregion
@@ -415,7 +448,7 @@ namespace Server_Alart
         try
         {
             Form1 frm_main = new Form1();
-            int rate = 1000 * Int32.Parse(txtValue.Text);
+            int rate = 60000 * Int32.Parse(txtValue.Text);
             Server_Alart.Properties.Settings.Default.refreshRate = rate;
             logs("Monitoring Refresh rate have been updated");
         }
@@ -576,13 +609,12 @@ namespace Server_Alart
     private void importFromExcel() {
         try
         {
-            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
-            openFileDialog1.FilterIndex = 1;
-            openFileDialog1.Multiselect = false;
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            this.openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+            this.openFileDialog1.FilterIndex = 1;
+            this.openFileDialog1.Multiselect = false;
+            if (this.openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-
-                string filePath = "C:\\Users\\Shobuj\\Desktop\\data.xlsx";
+                string filePath = this.openFileDialog1.FileName;
                 string header = "No";
                 string conStr = string.Format(Excel07ConString, filePath, header);
                 using (OleDbConnection con = new OleDbConnection(conStr))
@@ -598,10 +630,18 @@ namespace Server_Alart
                             oda.SelectCommand = cmd;
                             oda.Fill(dt);
                             con.Close();
-
+                            if (dataGridView1.Rows.Count > 1)
+                            {
+                                dynamic mbox = MessageBox.Show("Do you want to clear previous IP Addresses \"Yes\" \n Keep Previous IP Addresses \"No\" ", "Confirmation", MessageBoxButtons.YesNo);
+                                if (mbox == DialogResult.Yes)
+                                {
+                                    this.dataGridView1.Rows.Clear();
+                                    this.dataGridView1.Refresh();
+                                }
+                            }
                             for (int i = 1; i <= dt.Rows.Count - 1; i++)
                             {
-                                dataGridView1.Rows.Add(dt.Rows[i][0].ToString(), dt.Rows[i][1].ToString(), dt.Rows[i][2].ToString(), dt.Rows[i][3].ToString());
+                                this.dataGridView1.Rows.Add(dt.Rows[i][0].ToString(), dt.Rows[i][1].ToString(), dt.Rows[i][2].ToString(), dt.Rows[i][3].ToString());
                             }
                         }
                     }
