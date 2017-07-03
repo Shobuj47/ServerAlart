@@ -17,6 +17,9 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Data.OleDb;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
+using Excel = Microsoft.Office.Interop.Excel;
+
 
 namespace Server_Alart
 {
@@ -553,63 +556,59 @@ namespace Server_Alart
 
 
     /// <summary> 
-    /// Exports the datagridview values to Excel. 
+    /// Exports the datagridview into Excel. 
     /// </summary> 
     private void ExportToExcel()
     {
         try
         {
-            // creating Excel Application
-            Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
-            // creating new WorkBook within Excel application
-            Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
-            // creating new Excelsheet in workbook
-            Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
-            // see the excel sheet behind the program
-            app.Visible = true;
-            worksheet = workbook.Sheets["Sheet1"];
-            worksheet = workbook.ActiveSheet;
-            worksheet.Name = "Sheet1";
-            // Getting Headers from DatagridView
-            for (int i = 1; i < dataGridView1.Columns.Count - 2; i++)
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel files (*.xls)|*.xls";
+            saveFileDialog.FilterIndex = 2;
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                worksheet.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
-            }
-            // storing Each row and column value to excel sheet
-            for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
-            {
+                string filepath = saveFileDialog.FileName.ToString();
+                Excel.Application xlApp;
+                Excel.Workbook xlWorkBook;
+                Excel.Worksheet xlWorkSheet;
+                object misValue = System.Reflection.Missing.Value;
 
-                for (int j = 0; j < dataGridView1.Columns.Count - 2; j++)
+                xlApp = new Excel.Application();
+                xlWorkBook = xlApp.Workbooks.Add(misValue);
+                xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+                int i = 0;
+                int j = 0;
+
+                for (i = 0; i <= dataGridView1.RowCount - 1; i++)
                 {
-
-                    worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
-
+                    for (j = 0; j <= dataGridView1.ColumnCount - 1; j++)
+                    {
+                        DataGridViewCell cell = dataGridView1[j, i];
+                        xlWorkSheet.Cells[i + 1, j + 1] = cell.Value;
+                    }
                 }
-
+                xlWorkBook.SaveAs(filepath, misValue, misValue, misValue, misValue, misValue, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange, misValue, misValue, misValue, misValue, misValue);
+                xlWorkBook.Close(null, null, null);
+                xlApp.Quit();
+                xlApp = null; 
             }
-            // save the application
-            saveFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
-            saveFileDialog1.FilterIndex = 2;
-            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                workbook.SaveAs(saveFileDialog1.FileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-                MessageBox.Show("Export Successful");
-            }
-            app.Quit();
-            logs("List Exported Sucessfully");
         }
-        catch (Exception ex) {
-            logs(ex.ToString());
+        catch (Exception ex)
+        {
+            this.logs(ex.ToString());
         }
         }
-
 
     private string Excel07ConString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 8.0;HDR={1}'";
     
+
+        /// <summary>
+        /// Imports Data From an Excell File into Datagrid View
+        /// </summary>
     private void importFromExcel() {
         try
         {
-            this.openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+            this.openFileDialog1.Filter = "Excel files (*.xls)|*.xls";
             this.openFileDialog1.FilterIndex = 1;
             this.openFileDialog1.Multiselect = false;
             if (this.openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -643,6 +642,7 @@ namespace Server_Alart
                             {
                                 this.dataGridView1.Rows.Add(dt.Rows[i][0].ToString(), dt.Rows[i][1].ToString(), dt.Rows[i][2].ToString(), dt.Rows[i][3].ToString());
                             }
+                            
                         }
                     }
                 }
