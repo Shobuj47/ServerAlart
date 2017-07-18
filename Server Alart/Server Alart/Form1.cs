@@ -33,11 +33,12 @@ namespace Server_Alart
 
     #region variable
     //Variable Declaration
-    private static string username = Server_Alart.Properties.Settings.Default.username;
-    private static string password = Server_Alart.Properties.Settings.Default.password;
-    private static string serverUrl = Server_Alart.Properties.Settings.Default.serverUrl;
-    private static int port = Server_Alart.Properties.Settings.Default.port;
-    private string loadPath = Server_Alart.Properties.Settings.Default.load_path;
+    private static string username { get; set; }
+    private static string password { get; set; }
+    private static string serverUrl { get; set; }
+    private static int port { get; set; }
+    private string loadPath { get; set; }
+    private Boolean enable_mail { get; set; }
     // 32 bytes long.  Using a 16 character string here gives us 32 bytes when converted to a byte array.
     private const string initVector = "p$mg^il9_zpg*l88";
     // This constant is used to determine the keysize of the encryption algorithm
@@ -110,7 +111,8 @@ namespace Server_Alart
                         _hostName = System.Net.Dns.GetHostEntry(IPAddress.Parse(txt_Host.Text)).HostName.ToString();
                     }
                     catch (Exception ex) {
-                        this.logs("Host: "+txt_Host.Text+" is not reachable or have no DNS entry");
+                        this.logs("Host: "+txt_Host.Text+" is not reachable or have no DNS entry Setting Hostname Blank");
+                        this.logs(ex.ToString());
                         _hostName = "";
                     }
                 }
@@ -196,6 +198,11 @@ namespace Server_Alart
                         }
                     }
                 }
+
+
+                if (enable_mail == true){
+                serverListArray();
+                }
                 Thread.Sleep(Server_Alart.Properties.Settings.Default.refreshRate);
             }
         }
@@ -260,31 +267,34 @@ namespace Server_Alart
     }
 
     //E-mail Function
-    private static void sendMail(string hostDetails)
+    private void sendMail(string hostDetails)
     {
-        var fromAddress = new MailAddress(username, "Down Server Notifier");
-        var toAddress = new MailAddress(Server_Alart.Properties.Settings.Default.toMail.ToString(), "Recipent");
-        string fromPassword = Decrypt(password);
-        const string subject = "Server Status is detected as down";
-        string body = "Sir, The following hosts are down. Please Check ASAP. \n" + hostDetails;
-        MessageBox.Show(body);
-        var smtp = new SmtpClient
+        try
         {
-            Host = serverUrl,
-            Port = port,
-            EnableSsl = true,
-            DeliveryMethod = SmtpDeliveryMethod.Network,
-            UseDefaultCredentials = false,
-            Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
-        };
-        using (var message = new MailMessage(fromAddress, toAddress)
-        {
-            Subject = subject,
-            Body = body
-        })
-        {
-            smtp.Send(message);
+            var fromAddress = new MailAddress(username, "Down Server Notifier");
+            var toAddress = new MailAddress(Server_Alart.Properties.Settings.Default.toMail.ToString(), "Recipent");
+            string fromPassword = Decrypt(password);
+            const string subject = "Server Status is detected as down";
+            string body = "Sir, The following hosts are down. Please Check ASAP. \n" + hostDetails;
+            var smtp = new SmtpClient
+            {
+                Host = serverUrl,
+                Port = port,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
+                smtp.Send(message);
+            }
         }
+        catch (Exception ex) { logs(ex.ToString());   }
     }
 
     #endregion
@@ -295,6 +305,7 @@ namespace Server_Alart
     {
         try
         {
+            loadVariable();
             if (!_isStarted)
             {
                 thread1 = new Thread(hostStatus);
@@ -378,14 +389,26 @@ namespace Server_Alart
         this.loadSettings();
     }
 
+    private void loadVariable() {
+     username = Server_Alart.Properties.Settings.Default.username;
+     password = Server_Alart.Properties.Settings.Default.password;
+     serverUrl = Server_Alart.Properties.Settings.Default.serverUrl;
+     port = Server_Alart.Properties.Settings.Default.port;
+     loadPath = Server_Alart.Properties.Settings.Default.load_path;
+     enable_mail = Server_Alart.Properties.Settings.Default.mail_sending;
+    }
+
+
+
     private void loadSettings()
     {
+        int refreshRate = int.Parse(Server_Alart.Properties.Settings.Default.refreshRate.ToString()) / 60000;
         this.txtUser.Text = Server_Alart.Properties.Settings.Default.username.ToString();
         this.txtPass.Text = Server_Alart.Properties.Settings.Default.password.ToString();
         this.txtServer.Text = Server_Alart.Properties.Settings.Default.serverUrl.ToString();
         this.txtPort.Text = Server_Alart.Properties.Settings.Default.port.ToString();
         this.txt_toMail.Text = Server_Alart.Properties.Settings.Default.toMail.ToString();
-        this.txtValue.Text = Server_Alart.Properties.Settings.Default.refreshRate.ToString();
+        this.txtValue.Text = refreshRate.ToString();
         if (Server_Alart.Properties.Settings.Default.run_minimized == true)
         {
             checkBox1.Checked = true;
@@ -404,22 +427,6 @@ namespace Server_Alart
         }
     }
 
-    private void checkBox2_CheckedChanged_1(object sender, EventArgs e)
-    {
-        {
-            if (this.checkBox2.Checked == true)
-            {
-                Server_Alart.Properties.Settings.Default.mail_sending = 1;
-                logs("Email Sending Option Enabled");
-            }
-            else if (this.checkBox2.Checked == false)
-            {
-                Server_Alart.Properties.Settings.Default.mail_sending = 0;
-                logs("Email Sending Option Disabled");
-            }
-        }
-    }
-
     private void btn_emailUpdate_Click_1(object sender, EventArgs e)
     {
         try
@@ -435,9 +442,17 @@ namespace Server_Alart
                 Server_Alart.Properties.Settings.Default.serverUrl = this.txtServer.Text;
                 Server_Alart.Properties.Settings.Default.toMail = this.txt_toMail.Text;
                 Server_Alart.Properties.Settings.Default.port = Int32.Parse(this.txtPort.Text);
+                if (checkBox2.Checked == true)
+                {
+                    Server_Alart.Properties.Settings.Default.mail_sending = true;
+                }
+                else {
+                    Server_Alart.Properties.Settings.Default.mail_sending = false;
+                }
                 Server_Alart.Properties.Settings.Default.Save();
                 logs("Email Settings Updated");
              }
+            loadVariable();
         }
         catch (Exception ex)
         {
@@ -450,6 +465,10 @@ namespace Server_Alart
 
         try
         {
+            if (txtValue.Text == "") {
+                txtValue.Text = "1";
+            }
+
             Form1 frm_main = new Form1();
             int rate = 60000 * Int32.Parse(txtValue.Text);
             Server_Alart.Properties.Settings.Default.refreshRate = rate;

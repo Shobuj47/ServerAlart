@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="Server Alert.exe" version="1.0.1.9" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="Server Alert.exe" version="1.0.1.10" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <application />
   <entryPoint>
     <assemblyIdentity name="Server Alert" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
@@ -42,24 +42,24 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Server Alert.exe" size="217600">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Server Alert.exe" size="218112">
       <assemblyIdentity name="Server Alert" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>0BWEVZqBUJ6Ecstbm2gUIVyZyCjZHt05Ty8WrxOdYA8=</dsig:DigestValue>
+        <dsig:DigestValue>MJIukR5EXHHaKNolUpHvV3TTB8BlAsnBjGA/GWggiig=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="Server Alert.exe.config" size="2065">
+  <file name="Server Alert.exe.config" size="2070">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>9XmQNkR5NKe6Rd3Qnu6dbZ6yxsmeKDXg62g99y9QyWI=</dsig:DigestValue>
+      <dsig:DigestValue>gDxNLEQnXDHi9svL4d5cJWSyGI+VdpZeawye33tn50U=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

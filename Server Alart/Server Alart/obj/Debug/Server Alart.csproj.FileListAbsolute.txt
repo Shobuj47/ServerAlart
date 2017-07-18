@@ -34,8 +34,8 @@ C:\Users\Shobuj\Documents\Visual Studio 2012\Projects\Server Alart\ServerAlart\S
 C:\Users\Shobuj\Documents\Visual Studio 2012\Projects\Server Alart\ServerAlart\Server Alart\Server Alart\bin\Debug\Server Alert.application
 C:\Users\Shobuj\Documents\Visual Studio 2012\Projects\Server Alart\ServerAlart\Server Alart\Server Alart\bin\Debug\Server Alert.exe
 C:\Users\Shobuj\Documents\Visual Studio 2012\Projects\Server Alart\ServerAlart\Server Alart\Server Alart\bin\Debug\Server Alert.pdb
-C:\Users\Shobuj\Documents\Visual Studio 2012\Projects\Server Alart\ServerAlart\Server Alart\Server Alart\obj\Debug\Server Alart.csprojResolveAssemblyReference.cache
 C:\Users\Shobuj\Documents\Visual Studio 2012\Projects\Server Alart\ServerAlart\Server Alart\Server Alart\obj\Debug\Server Alert.exe.manifest
 C:\Users\Shobuj\Documents\Visual Studio 2012\Projects\Server Alart\ServerAlart\Server Alart\Server Alart\obj\Debug\Server Alert.application
 C:\Users\Shobuj\Documents\Visual Studio 2012\Projects\Server Alart\ServerAlart\Server Alart\Server Alart\obj\Debug\Server Alert.exe
 C:\Users\Shobuj\Documents\Visual Studio 2012\Projects\Server Alart\ServerAlart\Server Alart\Server Alart\obj\Debug\Server Alert.pdb
+C:\Users\Shobuj\Documents\Visual Studio 2012\Projects\Server Alart\ServerAlart\Server Alart\Server Alart\obj\Debug\Server Alart.csprojResolveAssemblyReference.cache

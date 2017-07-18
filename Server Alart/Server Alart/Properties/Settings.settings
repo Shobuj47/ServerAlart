@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="refreshRate" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">30000</Value>
+      <Value Profile="(Default)">60000</Value>
     </Setting>
     <Setting Name="username" Type="System.String" Scope="User">
       <Value Profile="(Default)">example@example.com</Value>
@@ -23,14 +23,14 @@
     <Setting Name="load_path" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="mail_sending" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="mail_sending" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="voice_settings" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="toMail" Type="System.String" Scope="User">
-      <Value Profile="(Default)">recipent@example.com</Value>
+      <Value Profile="(Default)">recipient@example.com</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -434,7 +434,7 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Location = new System.Drawing.Point(8, 174);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(475, 84);
+            this.groupBox2.Size = new System.Drawing.Size(617, 84);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Host\'s Refresh Rate :";
@@ -451,9 +451,9 @@
             // 
             // txtValue
             // 
-            this.txtValue.Location = new System.Drawing.Point(160, 40);
+            this.txtValue.Location = new System.Drawing.Point(155, 39);
             this.txtValue.Name = "txtValue";
-            this.txtValue.Size = new System.Drawing.Size(100, 20);
+            this.txtValue.Size = new System.Drawing.Size(137, 20);
             this.txtValue.TabIndex = 1;
             // 
             // label5
@@ -461,9 +461,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(10, 43);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(144, 13);
+            this.label5.Size = new System.Drawing.Size(139, 26);
             this.label5.TabIndex = 0;
-            this.label5.Text = "Add Refresh Rate (Secend) :";
+            this.label5.Text = "Add Refresh Rate (Minute) :\r\n[Default 1 Minute]";
             // 
             // groupBox3
             // 
@@ -482,7 +482,7 @@
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Location = new System.Drawing.Point(8, 6);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(477, 162);
+            this.groupBox3.Size = new System.Drawing.Size(619, 162);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "E-Mail Settings";
@@ -500,12 +500,13 @@
             // 
             this.txt_toMail.Location = new System.Drawing.Point(96, 96);
             this.txt_toMail.Name = "txt_toMail";
-            this.txt_toMail.Size = new System.Drawing.Size(145, 20);
+            this.txt_toMail.Size = new System.Drawing.Size(223, 20);
             this.txt_toMail.TabIndex = 10;
+            this.txt_toMail.Text = "recipient@example.com";
             // 
             // btn_emailUpdate
             // 
-            this.btn_emailUpdate.Location = new System.Drawing.Point(6, 133);
+            this.btn_emailUpdate.Location = new System.Drawing.Point(462, 129);
             this.btn_emailUpdate.Name = "btn_emailUpdate";
             this.btn_emailUpdate.Size = new System.Drawing.Size(129, 23);
             this.btn_emailUpdate.TabIndex = 9;
@@ -516,17 +517,16 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(322, 90);
+            this.checkBox2.Location = new System.Drawing.Point(96, 133);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(143, 17);
             this.checkBox2.TabIndex = 8;
             this.checkBox2.Text = "Enable Send Mail Option";
             this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged_1);
             // 
             // btn_Cancel
             // 
-            this.btn_Cancel.Location = new System.Drawing.Point(375, 133);
+            this.btn_Cancel.Location = new System.Drawing.Point(495, 96);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(96, 23);
             this.btn_Cancel.TabIndex = 7;
@@ -536,9 +536,9 @@
             // 
             // txtPort
             // 
-            this.txtPort.Location = new System.Drawing.Point(354, 64);
+            this.txtPort.Location = new System.Drawing.Point(415, 64);
             this.txtPort.Name = "txtPort";
-            this.txtPort.Size = new System.Drawing.Size(111, 20);
+            this.txtPort.Size = new System.Drawing.Size(176, 20);
             this.txtPort.TabIndex = 4;
             this.txtPort.Text = "587";
             // 
@@ -546,30 +546,32 @@
             // 
             this.txtServer.Location = new System.Drawing.Point(94, 64);
             this.txtServer.Name = "txtServer";
-            this.txtServer.Size = new System.Drawing.Size(147, 20);
+            this.txtServer.Size = new System.Drawing.Size(225, 20);
             this.txtServer.TabIndex = 3;
             this.txtServer.Text = "smtp.gmail.com";
             // 
             // txtPass
             // 
-            this.txtPass.Location = new System.Drawing.Point(354, 26);
+            this.txtPass.Location = new System.Drawing.Point(415, 26);
             this.txtPass.Name = "txtPass";
             this.txtPass.PasswordChar = '*';
-            this.txtPass.Size = new System.Drawing.Size(111, 20);
+            this.txtPass.Size = new System.Drawing.Size(176, 20);
             this.txtPass.TabIndex = 2;
+            this.txtPass.Text = "password";
             this.txtPass.UseSystemPasswordChar = true;
             // 
             // txtUser
             // 
             this.txtUser.Location = new System.Drawing.Point(94, 26);
             this.txtUser.Name = "txtUser";
-            this.txtUser.Size = new System.Drawing.Size(147, 20);
+            this.txtUser.Size = new System.Drawing.Size(225, 20);
             this.txtUser.TabIndex = 1;
+            this.txtUser.Text = "sender@example.com";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(271, 67);
+            this.label4.Location = new System.Drawing.Point(331, 67);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(78, 13);
             this.label4.TabIndex = 3;
@@ -587,7 +589,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(271, 29);
+            this.label6.Location = new System.Drawing.Point(331, 29);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 13);
             this.label6.TabIndex = 1;

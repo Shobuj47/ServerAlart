@@ -25,7 +25,7 @@ namespace Server_Alart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("60000")]
         public int refreshRate {
             get {
                 return ((int)(this["refreshRate"]));
@@ -109,10 +109,10 @@ namespace Server_Alart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int mail_sending {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool mail_sending {
             get {
-                return ((int)(this["mail_sending"]));
+                return ((bool)(this["mail_sending"]));
             }
             set {
                 this["mail_sending"] = value;
@@ -133,7 +133,7 @@ namespace Server_Alart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("recipent@example.com")]
+        [global::System.Configuration.DefaultSettingValueAttribute("recipient@example.com")]
         public string toMail {
             get {
                 return ((string)(this["toMail"]));
