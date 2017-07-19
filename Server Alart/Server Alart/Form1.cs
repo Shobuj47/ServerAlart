@@ -92,7 +92,6 @@ namespace Server_Alart
     //Add new data to dataGridView
     private void button1_Click(object sender, EventArgs e)
         {
-        
             addHost();
          }
 
@@ -214,16 +213,29 @@ namespace Server_Alart
 
        
     private void serverListArray(){
+        Boolean isDown = false;
             StringBuilder str = new StringBuilder();
             for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
             {
-                if (dataGridView1.Rows[i].Cells[3].Value.ToString() == "Down")
+                if (dataGridView1.Rows[i].Cells[4].Value.ToString() == "Down")
                 {
-                    str.Append(dataGridView1.Rows[i].Cells[1].Value.ToString() + "\t \t | \t" + dataGridView1.Rows[i].Cells[2].Value.ToString() + "\n");
+                    string port = "";
+                    if (dataGridView1.Rows[i].Cells[3].Value.ToString() == "")
+                    {
+                        port = "ICMP";
+                    }
+                    else {
+                        port = dataGridView1.Rows[i].Cells[3].Value.ToString();
+                    }
+                    str.Append(dataGridView1.Rows[i].Cells[1].Value.ToString() + "\t|\t" + dataGridView1.Rows[i].Cells[2].Value.ToString() + "\tOn Port : " + port + "\n");
+                    isDown = true;
                 }
             }
-            logs("Server down notification sent to : " + Server_Alart.Properties.Settings.Default.username.ToString());
-            sendMail(str.ToString());
+            logs("Server down notification sent to : " + Server_Alart.Properties.Settings.Default.toMail.ToString());
+            if (isDown == true)
+            {
+                sendMail(str.ToString());
+            }
     }
 
     private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -313,11 +325,13 @@ namespace Server_Alart
                 thread1.IsBackground = true;
                 logs("Server Monitoring Started ");
                 _isStarted = true;
+                startMonitoringToolStripMenuItem.Text = "Stop Monitoring";
             }
             else {
                 thread1.Abort();
                 logs("Server Monitoring Stoped ");
                 _isStarted = false;
+                startMonitoringToolStripMenuItem.Text = "Start Monitoring";
             }
         }
         catch (Exception ex) {
@@ -409,6 +423,7 @@ namespace Server_Alart
         this.txtPort.Text = Server_Alart.Properties.Settings.Default.port.ToString();
         this.txt_toMail.Text = Server_Alart.Properties.Settings.Default.toMail.ToString();
         this.txtValue.Text = refreshRate.ToString();
+        //Check run on minimized settings
         if (Server_Alart.Properties.Settings.Default.run_minimized == true)
         {
             checkBox1.Checked = true;
@@ -417,6 +432,7 @@ namespace Server_Alart
         {
             checkBox1.Checked = false;
         }
+        //Check Voice Settings
         if (Server_Alart.Properties.Settings.Default.voice_settings == true)
         {
             checkBox3.Checked = true;
@@ -424,6 +440,14 @@ namespace Server_Alart
         else
         {
             checkBox3.Checked = false;
+        }
+        //check send mail option
+        if (Server_Alart.Properties.Settings.Default.mail_sending == true)
+        {
+            checkBox2.Checked = true;
+        }
+        else {
+            checkBox2.Checked = false;
         }
     }
 
@@ -516,8 +540,15 @@ namespace Server_Alart
 
 
     private void logs(string exeption) {
-        DateTime time = DateTime.Now;
-        this.richTextBox1.AppendText("logs# " + time.ToString() + " \t " + exeption + " \n");
+        if (this.InvokeRequired)
+        {
+            this.Invoke(new Action<string>(logs), new object[] { exeption });
+        }
+        else
+        {
+            DateTime time = DateTime.Now;
+            this.richTextBox1.AppendText("logs# " + time.ToString() + " \t " + exeption + " \n");
+        }
     }
 
 
